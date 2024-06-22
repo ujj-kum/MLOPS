@@ -3,8 +3,9 @@ import logging
 from pathlib import Path
 
 list_of_files = [
-    '.github/workflows/.gitkeep',
+    ".github/workflows/.gitkeep",
     'src/__init__.py',
+    'src/components/__init__.py',
     'src/components/data_ingestion.py',
     'src/components/data_transformation.py',
     'src/components/model_trainer.py',
@@ -18,7 +19,7 @@ list_of_files = [
     'src/exception/exception.py',
     'tests/unit/__init__.py',
     'tests/integration/__init__.py',
-    '__init__setup.sh',
+    'init_setup.sh',
     'requirements.txt',
     'requirements_dev.txt',
     'setup.py',
@@ -31,9 +32,11 @@ list_of_files = [
 for filepath in list_of_files:
     filepath = Path(filepath)
     dirname, filename = os.path.split(filepath)
+
     if dirname!="":
         os.makedirs(dirname, exist_ok=True)
         logging.info(f"Creating directory: {dirname} for file: {filename}")
-    else:
+
+    if (not os.path.exists(filepath)) or (os.path.getsize(filepath)==0):
         with open(filename, 'w') as f:
             pass
